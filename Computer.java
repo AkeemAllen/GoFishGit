@@ -1,5 +1,9 @@
 
 public class Computer extends Player{
+	public Computer(){
+		Hand computerHand = new Hand();
+		name = "default computer";
+	}
 	void requestCard(){
 		/*I'm pretty sure this is the only method that needs to be added
 		 * or overriden for this class. I think that the best way to set 

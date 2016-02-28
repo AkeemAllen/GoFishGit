@@ -10,7 +10,7 @@ public class Deck {
 		int count = 0;
 		
 		//Fills the deck with cards
-		for(int suit = 0; suit<3; suit++) 
+		for(int suit = 0; suit<4; suit++) 
 		{
 			for(int value = 0; value <13; value++) 
 			{
@@ -25,7 +25,7 @@ public class Deck {
 	{
 		for (int i = 0; i < 52; i++)
 		{
-			int rand = (int) (Math.random() * 52 +1);
+			int rand = (int) (Math.random() * 52);
 			Card temp = deck[rand];
 			deck[rand] = deck[i];
 			deck[i] = temp;
@@ -38,7 +38,7 @@ public class Deck {
 	{
 		for (int i = 0; i < 52; i++) 
 		{
-			System.out.println(this.deck[i].valueToString() + " " + this.deck[i].suitToString());
+			System.out.println(deck[i].valueToString() + " of " + deck[i].suitToString());
 		}
 	}	
 }

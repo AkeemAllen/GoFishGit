@@ -12,7 +12,7 @@ public class Deck {
 		//Fills the deck with cards
 		for(int suit = 0; suit<=3; suit++) 
 		{
-			for(int value = 1; value <= 13; value++) 
+			for(int value = 0; value <= 13; value++) 
 			{
 				deck[count] = new Card(value, suit);
 				System.out.println();

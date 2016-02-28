@@ -1,10 +1,10 @@
 public class Card {
-
+	//why do we need these? they are never used ... 
 	private static final int SPADE = 0;
 	private static final int DIAMOND = 1;
 	private static final int HEART = 2;
 	private static final int CLUB = 3;
-
+	//why do we need these? they are never used ... 
 	private static final int ACE = 1;
 	private static final int JACK = 11;
 	private static final int QUEEN = 12;
@@ -15,36 +15,36 @@ public class Card {
 	
 
 	//Creates a card
-	public Card(int theValue, int theSuit) 
+	public Card(int value, int suit) 
 	{
-		this.value = theValue;
-		this.suit = theSuit;
+		this.value = value;
+		this.suit = suit;
 	}
-
+//fixed
 	public int getSuit() 
 	{
-		return suit;
+		return this.suit;
 	}
 
 	public int getValue() 
 	{
-		return value;
+		return this.value;
 	}
 
 	public String suitToString() 
 	{
-		switch (suit) 
+		switch (this.suit) 
 		{
-			case 0: return "SPADE";
-			case 1: return "DIAMOND";
-			case 2: return "HEART";
-			default: return "CLUB";
+			case 0: return "SPADES";
+			case 1: return "DIAMONDS";
+			case 2: return "HEARTS";
+			default: return "CLUBS";
 		}
 	}
 
 	public String valueToString() 
 	{
-		switch (value) 
+		switch (this.value) 
 		{
 			case 1: return "Ace";
 			case 2: return "Two";
@@ -64,7 +64,7 @@ public class Card {
 
 	public String toString() 
 	{
-		return suit + " " + value;
+		return this.value + " of " + this.suit;
 	}
 
 

@@ -1,5 +1,10 @@
 
 public class Computer extends Player{
+	public Computer(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
+
 	void requestCard(){
 		/*I'm pretty sure this is the only method that needs to be added
 		 * or overriden for this class. I think that the best way to set 

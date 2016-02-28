@@ -6,7 +6,7 @@ public class Deck {
 	//Constructor to create a standard 52 card deck
 	public Deck() 
 	{
-		deck = new Card[52];
+		this.deck = new Card[52];
 		int count = 0;
 		
 		//Fills the deck with cards
@@ -14,7 +14,7 @@ public class Deck {
 		{
 			for(int value = 0; value <= 13; value++) 
 			{
-				deck[count] = new Card(value, suit);
+				this.deck[count] = new Card(value, suit);
 				System.out.println();
 				count++;
 			}
@@ -38,7 +38,7 @@ public class Deck {
 	{
 		for (int i = 0; i < 52; i++) 
 		{
-			System.out.println(deck[i].valueToString() + " " + deck[i].suitToString());
+			System.out.println(this.deck[i].valueToString() + " " + this.deck[i].suitToString());
 		}
 	}	
 }

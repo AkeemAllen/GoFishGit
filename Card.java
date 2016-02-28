@@ -24,10 +24,10 @@ public class Card {
 	{
 		switch (this.suit) 
 		{
-			case 0: return "SPADES";
-			case 1: return "DIAMONDS";
-			case 2: return "HEARTS";
-			default: return "CLUBS";
+			case 0: return "Spades";
+			case 1: return "Diamonds";
+			case 2: return "Hearts";
+			default: return "Clubs";
 		}
 	}
 

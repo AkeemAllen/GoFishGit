@@ -55,8 +55,4 @@ public class Card {
 	{
 		return this.value + " of " + this.suit;
 	}
-
-
-
-
 } 

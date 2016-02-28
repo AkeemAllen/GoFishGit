@@ -10,7 +10,7 @@ public class Deck {
 		int count = 0;
 		
 		//Fills the deck with cards
-		for(int suit = 0; suit<3; suit++) 
+		for(int suit = 0; suit<=3; suit++) 
 		{
 			for(int value = 0; value <13; value++) 
 			{

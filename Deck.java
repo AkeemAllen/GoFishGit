@@ -15,9 +15,30 @@ public class Deck {
 			for(int value = 1; value <= 13; value++) 
 			{
 				deck[count] = new Card(value, suit);
+				System.out.println();
 				count++;
 			}
 		}	
 	}
+	protected void shuffle()
+	//Selects a random index in the deck and swaps it with index i
+	{
+		for (int i = 0; i < 52; i++)
+		{
+			int rand = (int) (Math.random() * 52 +1);
+			Card temp = deck[rand];
+			deck[rand] = deck[i];
+			deck[i] = temp;
+		}
+		
+	}
 	
+	//Prints the deck to test that it has been shuffled adequately with no copies
+	protected void printDeck()
+	{
+		for (int i = 0; i < 52; i++) 
+		{
+			System.out.println(deck[i].valueToString() + " " + deck[i].suitToString());
+		}
+	}	
 }

@@ -3,6 +3,7 @@ import java.util.*;
 public class Hand {
 	public ArrayList<Card> Hand;
 	public ArrayList<Card> Discard;
+
 	public Hand() {
 		Hand = new ArrayList<Card>();
 		Discard = new ArrayList<Card>();
@@ -42,24 +43,25 @@ public class Hand {
 		}
 	}
 
-	public int testSelfCard (String testedCard){
+	public int testSelfCard(String testedCard) {
 		boolean testSelf = false;
-		for (int i = 0; i < Hand.size(); i ++){
-			if (testedCard == Hand.get(i).valueToString()){
+		for (int i = 0; i < Hand.size(); i++) {
+			if (testedCard == Hand.get(i).valueToString()) {
 				testSelf = true;
 				int selfCardIndex = Hand.indexOf(Hand.get(i));
 				return selfCardIndex;
 			}
 		}
 	}
+
 	public int requestCard(String testedCard) {
 		boolean cardInHand = false;
 		for (int i = 0; i < Hand.size(); i++) {
 			if (testedCard == Hand.get(i).valueToString()) {
 				cardInHand = true;
 				int cardIndex = Hand.indexOf(Hand.get(i));
-				
-				
+				return cardIndex;
+
 			}
 		}
 	}

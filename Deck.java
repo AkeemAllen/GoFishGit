@@ -42,6 +42,11 @@ public class Deck {
 		}
 	}
 
+	//Returns the size of the deck
+	public int getSize() {
+		return this.deck.size();
+	}
+
 	public Card getTopCard() {
 		
 		topCard = this.deck.get(0);
@@ -51,6 +56,7 @@ public class Deck {
 	public void setTopCard(Card topCard) {
 		this.topCard = topCard;
 	}
+	
 	public Card removeTopCard(){
 		this.deck.remove(0);
 		return null;

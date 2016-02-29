@@ -6,11 +6,13 @@ public class Hand {
 	public	Hand(){
 		Hand = new ArrayList<Card>(); 
 	}
+	
 	public void drawCard(Deck deckObject){
 		Card tempCard = deckObject.getTopCard();
 		Hand.add(tempCard);
 		deckObject.removeTopCard();
 	}
+	
 	public void dealHand(Deck deckObject){
 		for (int i = 0; i < 7; i++){
 			Card tempCard = deckObject.getTopCard();

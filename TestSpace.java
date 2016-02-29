@@ -6,5 +6,13 @@ public class TestSpace {
 	deck.shuffle();
 	deck.printDeck();
 
+	
+	for (int i = 0; i < deck.getSize(); i++) {
+
+		System.out.println(i);
+	}
+
+
+
 	}
 }

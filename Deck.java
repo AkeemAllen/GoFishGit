@@ -1,6 +1,7 @@
 import java.util.*;
+
 public class Deck {
-	
+	private Card topCard;	
 	public ArrayList<Card> deck;
 
 	//Constructor to create a standard 52 card deck
@@ -22,11 +23,11 @@ public class Deck {
 	protected void shuffle()
 	//Selects a random index in the deck and swaps it with index i
 	{
-		for (int i = 0; i < 52; i++)
+		for (int i = 0; i < deck.size(); i++)
 		{
 			int rand = (int) (Math.random() * 52);
 			Card temp = this.deck.get(rand);
-			this.deck.set(rand, this.deck.get(i));// = this.deck.get(i);
+			this.deck.set(rand, this.deck.get(i));
 			this.deck.set(i, temp);
 		}
 		
@@ -35,9 +36,24 @@ public class Deck {
 	//Prints the deck to test that it has been shuffled adequately with no copies
 	protected void printDeck()
 	{
-		for (int i = 0; i < 52; i++) 
+		for (int i = 0; i < deck.size(); i++) 
 		{
 			System.out.println(this.deck.get(i).valueToString() + " of " + this.deck.get(i).suitToString());
 		}
-	}	
+	}
+
+	public Card getTopCard() {
+		
+		topCard = this.deck.get(0);
+		return topCard;
+	}
+	
+	public void setTopCard(Card topCard) {
+		this.topCard = topCard;
+	}
+	public Card removeTopCard(){
+		this.deck.remove(0);
+		return null;
+	}
+	
 }

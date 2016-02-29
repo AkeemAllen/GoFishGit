@@ -3,6 +3,9 @@ import java.util.*;
 public class Hand {
 	public ArrayList<Card> Hand;
 	public ArrayList<Card> Discard;
+	public int selfCardIndex, otherCardIndex;
+	public boolean testSelf = false;
+	public boolean cardInHand = false;
 
 	public Hand() {
 		Hand = new ArrayList<Card>();
@@ -27,14 +30,9 @@ public class Hand {
 		return this.Hand.size();
 	}
 
-	public void takeCard(Hand playerHand, Card cardObject) {
-		this.Hand.add(cardObject);
-		playerHand.removeCard(cardObject);
-	}
-
-	public void removeCard(cardIndex) {
+	public void removeCard(int cardIndex) {
 		Discard.add(Hand.get(cardIndex));
-		this.Hand.remove(cardObject);
+		this.Hand.remove(cardIndex);
 	}
 
 	protected void printHand() {
@@ -43,15 +41,29 @@ public class Hand {
 		}
 	}
 
-	public int testSelfCard(String testedCard) {
-		boolean testSelf = false;
+	public boolean testSelfCard(String testedCard) {
+		for (int i = 0; i < Hand.size(); i++) {
+			if (testedCard == Hand.get(i).valueToString()) {
+				testSelf = true;
+				return testSelf;
+				//int selfCardIndex = Hand.indexOf(Hand.get(i));
+			} else {
+				System.out.println("That card isn't in your hand!");
+				testSelf = false;
+				return testSelf;
+			}
+		}
+		return testSelf;
+	}
+
+	public int testCardToRequest(String testedCard) {
 		for (int i = 0; i < Hand.size(); i++) {
 			if (testedCard == Hand.get(i).valueToString()) {
 				testSelf = true;
 				int selfCardIndex = Hand.indexOf(Hand.get(i));
-				return selfCardIndex;
 			}
 		}
+		return selfCardIndex;
 	}
 
 	public int requestCard(String testedCard) {
@@ -59,11 +71,11 @@ public class Hand {
 		for (int i = 0; i < Hand.size(); i++) {
 			if (testedCard == Hand.get(i).valueToString()) {
 				cardInHand = true;
-				int cardIndex = Hand.indexOf(Hand.get(i));
-				return cardIndex;
-
+				int otherCardIndex = Hand.indexOf(Hand.get(i));
+			} else {
+				cardInHand = false;
 			}
 		}
+		return otherCardIndex;
 	}
-
 }

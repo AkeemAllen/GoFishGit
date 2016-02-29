@@ -21,6 +21,10 @@ public class Hand {
 		}
 	}
 
+	public int getSize() {
+		return this.Hand.size();
+	}
+
 	public void takeCard(Hand playerHand, Card cardObject) {
 		this.Hand.add(cardObject);
 		playerHand.removeCard(cardObject);

@@ -46,11 +46,6 @@ public class Hand {
 			if (testedCard == Hand.get(i).valueToString()) {
 				testSelf = true;
 				return testSelf;
-				//int selfCardIndex = Hand.indexOf(Hand.get(i));
-			} else {
-				System.out.println("That card isn't in your hand!");
-				testSelf = false;
-				return testSelf;
 			}
 		}
 		return testSelf;
@@ -61,6 +56,7 @@ public class Hand {
 			if (testedCard == Hand.get(i).valueToString()) {
 				testSelf = true;
 				int selfCardIndex = Hand.indexOf(Hand.get(i));
+
 			}
 		}
 		return selfCardIndex;

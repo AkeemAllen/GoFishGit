@@ -22,15 +22,32 @@ public class goFish {
 				user_choice = scan.nextLine();
 				player1.hand.testSelfCard(user_choice);
 				if (player1.hand.testSelf) {
-					computer1.hand.requestCard(user_choice);
-					while (cardInHand = true) {
-						System.out.println("Excellent! You take card with value " + user_choice + " in to your hand.");
-						player1.hand.removeCard(player1.hand.selfCardIndex);
-						player1.hand.removeCard(computer1.hand.otherCardIndex);
-					}
-					System.out.println("Exited while loop");
-				}
+					computer1.hand.testCardToRequest(user_choice);
+					if (computer1.hand.cardInHand) {
+						computer1.hand.requestCard(user_choice);
+						while (cardInHand = true) {
+							System.out.println(
+									"Excellent! You take card with value " + user_choice + " in to your hand.");
+							player1.hand.removeCard(player1.hand.selfCardIndex);
+							player1.hand.removeCard(computer1.hand.otherCardIndex);
+							System.out.println("This is your current hand: \n");
+							player1.hand.printHand();
+							System.out.println("\n\nSelect a number correstponding to a card's value to"
+									+ "\n see if the computer has a matching pair.");
+							user_choice = scan.nextLine();
+							player1.hand.testSelfCard(user_choice);
+							if (player1.hand.testSelf) {
+								computer1.hand.testCardToRequest(user_choice);
+								if (computer1.hand.cardInHand) {
+									computer1.hand.requestCard(user_choice);
+								}
+							}
 
+							System.out.println("Exited while loop");
+						}
+
+					}
+				}
 			}
 		}
 	}

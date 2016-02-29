@@ -1,44 +1,66 @@
-public class Hand
-// ----------------------------------------------------------------------------
-// A virtual representation of a hand object in a card game.
-// ----------------------------------------------------------------------------
-{
-	private Card[] Hand;
+import java.util.*;
 
-	public Hand()
-	// Default constructor.
-	{
-		Hand = new Card[52];
-		/*
-		 * Creates an an array using the Card class. This program has no
-		 * restraints on memory use, so there is no need to calculate the worse
-		 * possible scenario for the size of a hand in this game
-		 */
+public class Hand {
+	public ArrayList<Card> Hand;
+	public ArrayList<Card> Discard;
+	public Hand() {
+		Hand = new ArrayList<Card>();
+		Discard = new ArrayList<Card>();
 	}
 
-	void addCard()
-	// Adds a card to the player's hand. I don't feel like we're far enough in
-	// development to see how we want to build this method.
-	{
-
+	public void drawCard(Deck deckObject) {
+		Card tempCard = deckObject.getTopCard();
+		this.Hand.add(tempCard);
+		deckObject.removeTopCard();
 	}
 
-	void printHand()
-	// A getter method for the hand class. Prints out each element in the
-	// hand array.
-	{
-		for (int i = 0; i < 51; i++) {
-			System.out.println(Hand[i]);
+	public void dealHand(Deck deckObject) {
+		for (int i = 0; i < 7; i++) {
+			Card tempCard = deckObject.getTopCard();
+			this.Hand.add(tempCard);
+			deckObject.removeTopCard();
 		}
 	}
 
-	void setHand(Card theCard, int Index)
-	/*
-	 * Mutator method for the hand array. Used for testing. Not implemented in
-	 * main program. Could possibly be used for code reuse for another card
-	 * game?
-	 */
-	{
-		Hand[Index] = theCard;
+	public int getSize() {
+		return this.Hand.size();
 	}
+
+	public void takeCard(Hand playerHand, Card cardObject) {
+		this.Hand.add(cardObject);
+		playerHand.removeCard(cardObject);
+	}
+
+	public void removeCard(Card cardObject) {
+		
+		int cardIndex = Hand.indexOf(cardObject);
+		Discard.add(Hand.get(cardIndex));
+		this.Hand.remove(cardObject);
+	}
+
+	protected void printHand() {
+		for (int i = 0; i < Hand.size(); i++) {
+			System.out.println(this.Hand.get(i).valueToString() + " of " + this.Hand.get(i).suitToString());
+		}
+	}
+
+	public boolean testSelfCard (String testedCard){
+		boolean testSelf = false;
+		for int (int i = 0; i < Hand.size(); i ++){
+			if (testedCard == Hand.get(i).valueToString()){
+				testSelf = true;
+			}
+		}
+	}
+	public void requestCard(String testedCard) {
+		boolean cardInHand = false;
+		for (int i = 0; i < player.hand.getSize(); i++) {
+			if (testedCard == player.hand.get(i).valueToString()) {
+				cardInHand = true;
+				int cardIndex = Hand.indexOf(Hand.get(i));
+				
+			}
+		}
+	}
+
 }

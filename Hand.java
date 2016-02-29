@@ -3,22 +3,30 @@ import java.util.*;
 public class Hand {
 	public ArrayList<Card> Hand;
 	public ArrayList<Card> Discard;
-	public int selfCardIndex, otherCardIndex;
+	public int cardIndex;
 	public boolean testSelf = false;
 	public boolean cardInHand = false;
 
-	public Hand() {
+	public Hand()
+	// Default constructor method for the Hand class
+	{
 		Hand = new ArrayList<Card>();
+		// An arraylist representing a player's hand
 		Discard = new ArrayList<Card>();
+		// An arraylist representing a player's discard pile
 	}
 
-	public void drawCard(Deck deckObject) {
+	public void drawCard(Deck deckObject)
+	// Draws a card from a specified deck
+	{
 		Card tempCard = deckObject.getTopCard();
 		this.Hand.add(tempCard);
 		deckObject.removeTopCard();
 	}
 
-	public void dealHand(Deck deckObject) {
+	public void dealHand(Deck deckObject)
+	// Draws seven cards from a deck object
+	{
 		for (int i = 0; i < 7; i++) {
 			Card tempCard = deckObject.getTopCard();
 			this.Hand.add(tempCard);
@@ -26,52 +34,79 @@ public class Hand {
 		}
 	}
 
-	public int getSize() {
+	public int getSize()
+	// Returns the size of the player's hand
+	{
 		return this.Hand.size();
 	}
 
-	public void removeCard(int cardIndex) {
+	public void removeCard(int cardIndex)
+	// Removes card from the hand arraylist
+	{
 		Discard.add(Hand.get(cardIndex));
 		this.Hand.remove(cardIndex);
 	}
 
-	protected void printHand() {
-		for (int i = 0; i < Hand.size(); i++) {
+	protected void printHand()
+	// Prints the hand
+	{
+		for (int i = 0; i < this.Hand.size(); i++) {
 			System.out.println(this.Hand.get(i).valueToString() + " of " + this.Hand.get(i).suitToString());
 		}
 	}
 
-	public boolean testSelfCard(String testedCard) {
-		for (int i = 0; i < Hand.size(); i++) {
-			if (testedCard == Hand.get(i).valueToString()) {
-				testSelf = true;
-				return testSelf;
+	public boolean testSelfCard(String testedCard)
+	// Iterates through player's own hand to see if the card they are requesting
+	// is in their hand
+	{
+		for (int i = 0; i < this.Hand.size(); i++) {
+			this.testSelf = testedCard.equals(this.Hand.get(i).valueToString());
+			if (this.testSelf) {
+				break;
 			}
 		}
-		return testSelf;
+		return this.testSelf;
 	}
 
-	public int testCardToRequest(String testedCard) {
-		for (int i = 0; i < Hand.size(); i++) {
-			if (testedCard == Hand.get(i).valueToString()) {
-				testSelf = true;
-				int selfCardIndex = Hand.indexOf(Hand.get(i));
-
+	public int indexOfOwnCardRequested(String testedCard)
+	// Iterates through the player's own hand to find the index of the card to
+	// be removed
+	{
+		for (int i = 0; i < this.Hand.size(); i++) {
+			this.testSelf = testedCard.equals(this.Hand.get(i).valueToString());
+			if (this.testSelf) {
+				this.cardIndex = this.Hand.indexOf(Hand.get(i));
+				break;
 			}
 		}
-		return selfCardIndex;
+		return this.cardIndex;
 	}
 
-	public int requestCard(String testedCard) {
-		boolean cardInHand = false;
-		for (int i = 0; i < Hand.size(); i++) {
-			if (testedCard == Hand.get(i).valueToString()) {
-				cardInHand = true;
-				int otherCardIndex = Hand.indexOf(Hand.get(i));
-			} else {
-				cardInHand = false;
+	public boolean testCardToRequest(String testedCard)
+	// Called by computer or other player object. Iterates through that player's
+	// hand to see if a specific value of a card is in their hand.
+	{
+		// this.cardInHand = false;
+		for (int i = 0; i < this.Hand.size(); i++) {
+			this.cardInHand = testedCard.equals(this.Hand.get(i).valueToString());
+			if (this.cardInHand) {
+				break;
 			}
 		}
-		return otherCardIndex;
+		return this.cardInHand;
+	}
+
+	public int requestCard(String testedCard)
+	// Called by computer or other player object. Iterates through that player's
+	// hand to return the index of a specific value of a card in their hand.
+	{
+		for (int i = 0; i < this.Hand.size(); i++) {
+			this.cardInHand = testedCard.equals(this.Hand.get(i).valueToString());
+			if (cardInHand) {
+				this.cardIndex = this.Hand.indexOf(Hand.get(i));
+				break;
+			}
+		}
+		return this.cardIndex;
 	}
 }

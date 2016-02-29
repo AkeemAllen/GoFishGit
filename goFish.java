@@ -20,11 +20,12 @@ public class goFish {
 				System.out.println("\n\nSelect a number correstponding to a card's value to"
 						+ "\n see if the computer has a matching pair.");
 				user_choice = scan.nextLine();
-				player1.hand.testCardValue(user_choice);
+				player1.hand.testSelfCard(user_choice);
 				while (cardInHand){
-					computer1.hand.testCardValue(user_choice);
+					computer1.hand.requestCard(user_choice);
 					System.out.println("Excellent! You take card with value " + user_choice + " in to your hand.");
-					player1.hand.takeCard(computer1.hand, cardIndex);
+					player1.hand.removeCard(selfCardIndex);
+					computer1.hand.removeCard(cardIndex);
 				}
 				
 				

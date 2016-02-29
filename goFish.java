@@ -19,6 +19,8 @@ public class goFish {
 				player1.hand.printHand();
 				System.out.println("\n\nSelect a number correstponding to a card's value to"
 						+ "\n see if the computer has a matching pair.");
+				System.out.println("\n\n printing computer's cards... : ");
+				computer1.hand.printHand();
 				user_choice = scan.nextLine();
 				player1.hand.testSelfCard(user_choice);
 				if (player1.hand.testSelf) {
@@ -43,11 +45,13 @@ public class goFish {
 								}
 							}
 
-							System.out.println("Exited while loop");
 						}
 
 					}
 				}
+				System.out.println("\n\nGo Fish!");
+				player1.hand.drawCard(deck);
+				//randomly pick a number from the computer's hand.
 			}
 		}
 	}

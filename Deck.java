@@ -1,22 +1,21 @@
-
+import java.util.*;
 public class Deck {
 	
-	private Card[] deck;
+	public ArrayList<Card> deck;
 
 	//Constructor to create a standard 52 card deck
 	public Deck() 
 	{
-		this.deck = new Card[52];
-		int count = 0;
+		this.deck = new ArrayList<Card>();
 		
 		//Fills the deck with cards
 		for(int suit = 0; suit<4; suit++) 
 		{
 			for(int value = 0; value <13; value++) 
 			{
-				this.deck[count] = new Card(value, suit);
+				this.deck.add(new Card(value, suit));
 				System.out.println();
-				count++;
+
 			}
 		}	
 	}
@@ -26,9 +25,9 @@ public class Deck {
 		for (int i = 0; i < 52; i++)
 		{
 			int rand = (int) (Math.random() * 52);
-			Card temp = deck[rand];
-			deck[rand] = deck[i];
-			deck[i] = temp;
+			Card temp = this.deck.get(rand);
+			this.deck.set(rand, this.deck.get(i));// = this.deck.get(i);
+			this.deck.set(i, temp);
 		}
 		
 	}
@@ -38,7 +37,7 @@ public class Deck {
 	{
 		for (int i = 0; i < 52; i++) 
 		{
-			System.out.println(deck[i].valueToString() + " of " + deck[i].suitToString());
+			System.out.println(this.deck.get(i).valueToString() + " of " + this.deck.get(i).suitToString());
 		}
 	}	
 }

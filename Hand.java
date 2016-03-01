@@ -4,6 +4,7 @@ public class Hand {
 	public ArrayList<Card> Hand;
 	public ArrayList<Card> Discard;
 	public int cardIndex;
+	public String cardValueString = " ";
 	public boolean testSelf = false;
 	public boolean cardInHand = false;
 
@@ -40,10 +41,10 @@ public class Hand {
 		return this.Hand.size();
 	}
 
-	public void removeCard(int cardIndex)
+	public void removeCardToTargetDiscard(int cardIndex, Player target)
 	// Removes card from the hand arraylist
 	{
-		Discard.add(Hand.get(cardIndex));
+		target.hand.Discard.add(Hand.get(cardIndex));
 		this.Hand.remove(cardIndex);
 	}
 
@@ -59,6 +60,7 @@ public class Hand {
 	// Iterates through player's own hand to see if the card they are requesting
 	// is in their hand
 	{
+		testedCard = testedCard.substring(0, 1).toUpperCase() + testedCard.substring(1).toLowerCase();
 		for (int i = 0; i < this.Hand.size(); i++) {
 			this.testSelf = testedCard.equals(this.Hand.get(i).valueToString());
 			if (this.testSelf) {
@@ -72,6 +74,7 @@ public class Hand {
 	// Iterates through the player's own hand to find the index of the card to
 	// be removed
 	{
+		testedCard = testedCard.substring(0, 1).toUpperCase() + testedCard.substring(1).toLowerCase();
 		for (int i = 0; i < this.Hand.size(); i++) {
 			this.testSelf = testedCard.equals(this.Hand.get(i).valueToString());
 			if (this.testSelf) {
@@ -82,11 +85,22 @@ public class Hand {
 		return this.cardIndex;
 	}
 
+	public int randomCardIndex() {
+		this.cardIndex = (int) (Math.random() * this.Hand.size());
+		return this.cardIndex;
+	}
+
+	public String stringOfIndexOfCardToRequest(int cardIndex) {
+		cardValueString = this.Hand.get(cardIndex).valueToString();
+		return cardValueString;
+
+	}
+
 	public boolean testCardToRequest(String testedCard)
 	// Called by computer or other player object. Iterates through that player's
 	// hand to see if a specific value of a card is in their hand.
 	{
-		// this.cardInHand = false;
+		testedCard = testedCard.substring(0, 1).toUpperCase() + testedCard.substring(1).toLowerCase();
 		for (int i = 0; i < this.Hand.size(); i++) {
 			this.cardInHand = testedCard.equals(this.Hand.get(i).valueToString());
 			if (this.cardInHand) {
@@ -100,6 +114,7 @@ public class Hand {
 	// Called by computer or other player object. Iterates through that player's
 	// hand to return the index of a specific value of a card in their hand.
 	{
+		testedCard = testedCard.substring(0, 1).toUpperCase() + testedCard.substring(1).toLowerCase();
 		for (int i = 0; i < this.Hand.size(); i++) {
 			this.cardInHand = testedCard.equals(this.Hand.get(i).valueToString());
 			if (cardInHand) {
@@ -109,4 +124,7 @@ public class Hand {
 		}
 		return this.cardIndex;
 	}
+	//public void testForDrawnPairs(){
+		
+	//}
 }

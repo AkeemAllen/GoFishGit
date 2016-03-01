@@ -20,9 +20,18 @@ public class Hand {
 	public void drawCard(Deck deckObject)
 	// Draws a card from a specified deck
 	{
-		Card tempCard = deckObject.getTopCard();
-		this.Hand.add(tempCard);
-		deckObject.removeTopCard();
+		//Check to see if the deck is empty first
+		int deckSize = deckObject.getSize();
+		if (deckSize == 0){
+			System.out.println("The deck is currently empty");
+		}
+		else{
+			Card tempCard = deckObject.getTopCard();
+			this.Hand.add(tempCard);
+			deckObject.removeTopCard();
+			testForDrawnPairs();	
+		}
+		
 	}
 
 	public void dealHand(Deck deckObject)
@@ -33,19 +42,47 @@ public class Hand {
 			this.Hand.add(tempCard);
 			deckObject.removeTopCard();
 		}
+		printHand();
+		testForDrawnPairs();
 	}
 
 	public int getSize()
-	// Returns the size of the player's hand
+	// Returns the size of the hand
 	{
 		return this.Hand.size();
 	}
-
+	public int getDiscardSize()
+	// Returns the size of the discard pile to determine winner
+	{
+		return this.Discard.size();
+	}
 	public void removeCardToTargetDiscard(int cardIndex, Player target)
 	// Removes card from the hand arraylist
 	{
-		target.hand.Discard.add(Hand.get(cardIndex));
+		target.hand.Discard.add(this.Hand.get(cardIndex));
 		this.Hand.remove(cardIndex);
+	}
+
+	public void testForDrawnPairs()
+	//Iterates through the hand to determine if a pair was drawn or dealt in the beginning.
+	{
+		for (int i = 0; i < this.Hand.size(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (this.Hand.get(j).valueToString().equals(this.Hand.get(i).valueToString()) && i != j) {
+					System.out.println("A pair of a value " + this.Hand.get(j).valueToString() +  " has been drawn. Discarding...");
+					this.Discard.add(this.Hand.get(i));
+					this.Discard.add(this.Hand.get(j));
+					this.Hand.remove(i);
+					this.Hand.remove(j);
+					if ((i+1) < this.Hand.size() && j <= i){
+						i++;
+					}
+					else{
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	protected void printHand()
@@ -124,7 +161,4 @@ public class Hand {
 		}
 		return this.cardIndex;
 	}
-	//public void testForDrawnPairs(){
-		
-	//}
 }

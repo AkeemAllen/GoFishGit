@@ -18,8 +18,8 @@ public class goFish {
 		String computerString_choice = " ";
 		// Loop until the deck is empty
 		while (deck.getSize() > 0) {
-			// loop until one player is out of cards
-			while (player1.hand.getSize() > 0 && computer1.hand.getSize() > 0) {
+			// loop until one player is out of cards 
+			do {
 				System.out.println("This is your current hand: \n");
 				player1.hand.printHand(); // Display the hand to the player
 				System.out.println("\n\nSelect a number correstponding to a card's value to"
@@ -31,18 +31,18 @@ public class goFish {
 				user_choice = scan.nextLine();
 				// test to ensure the card is in the player's hand
 				player1.hand.testSelfCard(user_choice);
+				computer1.hand.testCardToRequest(user_choice);
 				// If the card is in the player's hand
 				if (player1.hand.testSelf) {
 					// Test to see if the value of the card is in computer's
 					// hand
-					computer1.hand.testCardToRequest(user_choice);
 					// If the card in hand returns true
 					if (computer1.hand.cardInHand) {
 						// While the card in hand remains true (loops again if
 						// the user picks another correct card)
 						while (computer1.hand.cardInHand) {
 							System.out.println(
-									"Excellent! You take card with value " + user_choice + " in to your hand.");
+									"\n\nExcellent! You take card with value " + user_choice + " in to your hand.");
 							// find the index of the card in player's hand that
 							// they requested.
 							player1.hand.indexOfOwnCardRequested(user_choice);
@@ -79,11 +79,16 @@ public class goFish {
 						}
 
 					}
+					else{
+						System.out.println("Sorry, the card value " + user_choice + " is not in the hand of " + computer1.getName());
+						System.out.println("Go Fish!");
+					}
 				} else {
 					System.out.println("That card isn't in your hand!");
 					System.out.println("Go Fish!\n");
 				}
 				player1.hand.drawCard(deck);
+				player1.hand.printHand();
 				// randomly pick a number from the computer's hand.
 				computer_choice = computer1.hand.randomCardIndex();
 				//Convert the computer's choice (random index) to a string of the card's value
@@ -113,7 +118,19 @@ public class goFish {
 					}
 				}
 				computer1.hand.drawCard(deck);
-			}
+			} while (player1.hand.getSize() > 0 && computer1.hand.getSize() > 0);
+		}
+		System.out.println("Game over!");
+		if (player1.hand.getDiscardSize() > computer1.hand.getDiscardSize()){
+			System.out.println("You win!");
+		}
+		else if (player1.hand.getDiscardSize() > computer1.hand.getDiscardSize()){
+			System.out.println("The computer wins!");
+		}
+		else {
+			System.out.println("There is a tie!");
 		}
 	}
+	
+	
 }

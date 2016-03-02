@@ -3,6 +3,7 @@ import java.util.*;
 public class Deck {
 	private Card topCard;	
 	public ArrayList<Card> deck;
+	public boolean deckEmpty = false;
 
 	//Constructor to create a standard 52 card deck
 	public Deck() 
@@ -61,5 +62,13 @@ public class Deck {
 		this.deck.remove(0);
 		return null;
 	}
-	
+	public boolean deckIsEmpty(){
+		if (this.deck.size() == 0){
+			deckEmpty = true;
+		}
+		else{
+			deckEmpty = false;
+		}
+		return deckEmpty;
+	}
 }

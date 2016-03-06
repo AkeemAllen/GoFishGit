@@ -7,6 +7,7 @@ public class Hand {
 	public String cardValueString = " ";
 	public boolean testSelf = false;
 	public boolean cardInHand = false;
+	public boolean handEmpty = false;
 
 	public Hand()
 	// Default constructor method for the Hand class
@@ -20,18 +21,16 @@ public class Hand {
 	public void drawCard(Deck deckObject)
 	// Draws a card from a specified deck
 	{
-		//Check to see if the deck is empty first
-		int deckSize = deckObject.getSize();
-		if (deckSize == 0){
+		// Check to see if the deck is empty first
+		if (deckObject.deckIsEmpty()) {
 			System.out.println("The deck is currently empty");
-		}
-		else{
+		} else {
 			Card tempCard = deckObject.getTopCard();
 			this.Hand.add(tempCard);
 			deckObject.removeTopCard();
-			testForDrawnPairs();	
+			testForDrawnPairs();
 		}
-		
+
 	}
 
 	public void dealHand(Deck deckObject)
@@ -47,39 +46,41 @@ public class Hand {
 	}
 
 	public int getSize()
-	// Returns the size of the hand
+	// Returns the size of the player's hand
 	{
 		return this.Hand.size();
 	}
-	public int getDiscardSize()
-	// Returns the size of the discard pile to determine winner
-	{
+
+	public int getDiscardSize() {
 		return this.Discard.size();
 	}
+
 	public void removeCardToTargetDiscard(int cardIndex, Player target)
 	// Removes card from the hand arraylist
 	{
-		target.hand.Discard.add(this.Hand.get(cardIndex));
-		this.Hand.remove(cardIndex);
+		if (!handIsEmpty()) {
+			target.hand.Discard.add(this.Hand.get(cardIndex));
+			this.Hand.remove(cardIndex);
+		} else {
+			System.out.println("The hand is empty!");
+		}
+
 	}
 
-	public void testForDrawnPairs()
-	//Iterates through the hand to determine if a pair was drawn or dealt in the beginning.
+	public void testForDrawnPairs() 
+	//Iterates through the hand to see if there are pairs. Unfortunately, there are special cases that need to be tested
 	{
-		for (int i = 0; i < this.Hand.size(); i++) {
-			for (int j = 0; j < i; j++) {
-				if (this.Hand.get(j).valueToString().equals(this.Hand.get(i).valueToString()) && i != j) {
-					System.out.println("A pair of a value " + this.Hand.get(j).valueToString() +  " has been drawn. Discarding...");
+		for (int i = 0; i < (this.Hand.size()-1); i++) {
+			for (int j = 1; j < this.Hand.size(); j++) {
+				//If the values of j and i are equal, but j and i are not the same index
+				if (this.Hand.get(j).valueToString().equals(this.Hand.get(i).valueToString()) && j != i) {
+					System.out.println("A pair of a value " + this.Hand.get(j).valueToString() + " has been drawn and discarded.");
+					//Remove from hand and discard
 					this.Discard.add(this.Hand.get(i));
 					this.Discard.add(this.Hand.get(j));
-					this.Hand.remove(i);
 					this.Hand.remove(j);
-					if ((i+1) < this.Hand.size() && j <= i){
-						i++;
-					}
-					else{
-						break;
-					}
+					this.Hand.remove(i);
+					System.out.println("\n\n");
 				}
 			}
 		}
@@ -122,12 +123,16 @@ public class Hand {
 		return this.cardIndex;
 	}
 
-	public int randomCardIndex() {
+	public int randomCardIndex() 
+	// Randomly pick a card based on it's index
+	{
 		this.cardIndex = (int) (Math.random() * this.Hand.size());
 		return this.cardIndex;
 	}
 
-	public String stringOfIndexOfCardToRequest(int cardIndex) {
+	public String stringOfIndexOfCardToRequest(int cardIndex) 
+	// Returns the value toString of a card based on it's index
+	{
 		cardValueString = this.Hand.get(cardIndex).valueToString();
 		return cardValueString;
 
@@ -160,5 +165,29 @@ public class Hand {
 			}
 		}
 		return this.cardIndex;
+	}
+
+	public boolean handIsEmpty() 
+	// Determines if the hand arraylist is empty
+	{
+		if (this.Hand.size() == 0) {
+			handEmpty = true;
+		} else {
+			handEmpty = false;
+		}
+		return handEmpty;
+	}
+	public void determineWinner(Player playerA, Player playerB)
+	// Determines the winner of the game!
+	{
+		if (playerA.hand.Discard.size() > playerB.hand.Discard.size()){
+			System.out.println("Player, " + playerA.getName() + " has won the game!");
+		}
+		else if (playerA.hand.Discard.size() < playerB.hand.Discard.size()){
+			System.out.println("Player, " + playerB.getName() + " has won the game!");
+		}
+		else{
+			System.out.println("The result is a tie!");
+		}
 	}
 }
